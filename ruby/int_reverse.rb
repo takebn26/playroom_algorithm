@@ -1,26 +1,19 @@
 def int_reverse(num)
-  return false unless num.class == Integer
-  return num if num.zero?
+  return num if num.class != Integer || num.zero?
 
-  output, multi, parser = init_variable(num)
+  output = 0
+  multi = 1
+  div = 1
 
-  while parser >= 1
-    output += ((num % (parser * 10)) / parser) * multi
-    parser /= 10
-    multi  *= 10
+  div *= 10 until div > num
+
+  while div > 1
+    output += ((num % div) / (div / 10)) * multi
+    div /= 10
+    multi *= 10
   end
 
   output
-end
-
-def init_variable(num)
-  [0, 1, 10**(int_digits(num) - 1)]
-end
-
-def int_digits(num)
-  digits = 1
-  digits += 1 while num >= 10**digits
-  digits
 end
 
 puts int_reverse(10_104)
